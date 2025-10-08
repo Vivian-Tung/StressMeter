@@ -12,18 +12,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import dev.viviantung.stressmeter.databinding.ActivityMainBinding
-import android.widget.GridView
-import android.widget.Button
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
-    private lateinit var gridView: GridView
-    private lateinit var adapter: GridViewAdapter
-
-    private lateinit var displayedImages: IntArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,17 +40,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        gridView = findViewById<GridView>(R.id.img_grid)
-        displayedImages = getRandom16Images()
-        adapter = GridViewAdapter(this, displayedImages)
-        gridView.adapter = adapter
-
-        val moreImgBtn = findViewById<Button>(R.id.btn_more)
-        moreImgBtn.setOnClickListener {
-            displayedImages = getRandom16Images()
-            gridView.adapter = GridViewAdapter(this, displayedImages)
-        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -70,7 +53,5 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun getRandom16Images(): IntArray {
-        return ImageData.imageIds.toList().shuffled().take(16).toIntArray()
-    }
+
 }
