@@ -14,7 +14,7 @@ class GridViewAdapter(
 ) : BaseAdapter() {
     override fun getCount(): Int = images.size
 
-    override fun getItem(position: Int): Any = images[position]
+    override fun getItem(position: Int): Int = images[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
