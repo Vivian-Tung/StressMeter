@@ -15,7 +15,6 @@ import dev.viviantung.stressmeter.GridViewAdapter
 import dev.viviantung.stressmeter.R
 import dev.viviantung.stressmeter.ScoreMap
 import dev.viviantung.stressmeter.databinding.FragmentStressmeterBinding
-import androidx.appcompat.app.AppCompatActivity
 import dev.viviantung.stressmeter.ImgConfirmActivity
 
 class StressmeterFragment : Fragment() {
@@ -54,16 +53,10 @@ class StressmeterFragment : Fragment() {
         gridView.setOnItemClickListener { parent, view, position, id ->
             val score = ScoreMap.getScore(position)
             val img = gridView.adapter.getItem(position) as Int
-            Toast.makeText(requireContext(), "Score: $score", Toast.LENGTH_SHORT).show()
-            // can just inflate a new xml instead of new activity; only launch new activity if click submit
-            // now need to send the score somewhere so i can create the chart -> need to open up a new xml to confirm the image
-            // and put extra (score)
-
             val intent = Intent(requireContext(), ImgConfirmActivity::class.java)
             intent.putExtra("score", score)
             intent.putExtra("image", img)
             startActivity(intent)
-
         }
 
 

@@ -1,11 +1,10 @@
 package dev.viviantung.stressmeter
 
-import android.content.Intent
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-
+import android.widget.Toast
 
 class ImgConfirmActivity:  AppCompatActivity()  {
     private lateinit var imgView: ImageView
@@ -25,18 +24,17 @@ class ImgConfirmActivity:  AppCompatActivity()  {
 
         if (img != 0) {
             imgView.setImageResource(img)
+            Toast.makeText(this, "Score: $score", Toast.LENGTH_SHORT).show()
         }
-
-
-
-
-
-
 
         submitButton.setOnClickListener() {
             // save the score into csv
-            finishAffinity()
-
+            CsvHelper.writeScore(this, score)
+//            val data = CsvHelper.readScores(this)
+//            val newestScore = data.last()
+//            Toast.makeText(this, "output: $data", Toast.LENGTH_SHORT).show()
+//            finish();
+             finishAffinity()
         }
 
         cancelButton.setOnClickListener() {
