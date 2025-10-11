@@ -12,6 +12,7 @@ class StressmeterViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
+    // display selected images
     private var _selectedImages: IntArray? = null
     val selectedImages: IntArray
         get() {
@@ -21,6 +22,7 @@ class StressmeterViewModel : ViewModel() {
             return _selectedImages!!
         }
 
+    // to get more images
     fun refreshImages() {
         _selectedImages = ImageData.imageIds.toList().shuffled().take(16).toIntArray()
     }

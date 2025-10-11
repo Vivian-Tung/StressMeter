@@ -23,6 +23,7 @@ class ImgConfirmActivity:  AppCompatActivity()  {
         val img = intent.getIntExtra("image", 0)
 
         if (img != 0) {
+            // there is image, display it
             imgView.setImageResource(img)
             Toast.makeText(this, "Score: $score", Toast.LENGTH_SHORT).show()
         }

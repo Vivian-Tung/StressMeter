@@ -50,7 +50,9 @@ class StressmeterFragment : Fragment() {
             gridView.adapter = GridViewAdapter(requireContext(), stressmeterViewModel.selectedImages)
         }
 
+        // grid view listener
         gridView.setOnItemClickListener { parent, view, position, id ->
+            // launch new activity to confirm the image, send the image and score to render
             val score = ScoreMap.getScore(position)
             val img = gridView.adapter.getItem(position) as Int
             val intent = Intent(requireContext(), ImgConfirmActivity::class.java)
@@ -58,13 +60,7 @@ class StressmeterFragment : Fragment() {
             intent.putExtra("image", img)
             startActivity(intent)
         }
-
-
-
-
-
         return root
-
     }
 
     override fun onDestroyView() {

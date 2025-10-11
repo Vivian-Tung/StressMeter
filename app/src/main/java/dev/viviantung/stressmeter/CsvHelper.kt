@@ -26,6 +26,7 @@ object CsvHelper {
         val file = getFile(context)
         if (!file.exists()) return emptyList()
 
+        // maps timestamp and score
         return file.readLines().mapNotNull { line ->
             val parts = line.split(",")
             if (parts.size == 2) {
