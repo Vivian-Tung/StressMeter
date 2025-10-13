@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dev.viviantung.stressmeter.R
@@ -24,6 +28,8 @@ class ResultsFragment : Fragment() {
 
     private lateinit var lineChart: LineChart
 
+    private lateinit var tableLayout: TableLayout
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -38,6 +44,7 @@ class ResultsFragment : Fragment() {
         _binding = FragmentResultsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         lineChart = root.findViewById<LineChart>(R.id.lineChart)
+        tableLayout = root.findViewById(R.id.scoreTable)
 
         val textView: TextView = binding.textResults
         resultsViewModel.text.observe(viewLifecycleOwner) {
@@ -52,14 +59,13 @@ class ResultsFragment : Fragment() {
         resultsViewModel.scores.observe(viewLifecycleOwner) { scoreList ->
             if (!scoreList.isNullOrEmpty()) {
                 renderChart(scoreList)
+                addHeaderRow()
+                renderTable(scoreList)
             }
         }
         // load scores
         resultsViewModel.loadScores(requireContext())
 
-
-
-        // the render chart and table
 
 
         return root
@@ -70,6 +76,7 @@ class ResultsFragment : Fragment() {
         _binding = null
     }
 
+    // fcn to render the lin chart
     private fun renderChart(scoreList: List<Pair<String, Int>>) {
         // convert pairs into chart points in loop
 
@@ -99,5 +106,52 @@ class ResultsFragment : Fragment() {
 
         lineChart.invalidate() // refresh
 
+    }
+
+    private fun addHeaderRow() {
+        val headerRow = TableRow(requireContext())
+        val timestampHeader = TextView(requireContext()).apply {
+            text = "Time"
+            setPadding(8, 8, 8, 8)
+            setTypeface(null, android.graphics.Typeface.BOLD)
+        }
+        val scoreHeader = TextView(requireContext()).apply {
+            text = "Stress"
+            setPadding(8, 8, 8, 8)
+            setTypeface(null, android.graphics.Typeface.BOLD)
+        }
+
+
+        headerRow.addView(timestampHeader)
+        headerRow.addView(scoreHeader)
+        headerRow.background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle, null)
+        headerRow.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey));
+        tableLayout.addView(headerRow)
+    }
+
+    // fcn to render the able
+    private fun renderTable(scoreList: List<Pair<String, Int>>) {
+        // this should just render the table, should get the data from the view model
+        // clear it first
+        tableLayout.removeViews(1, maxOf(tableLayout.childCount - 1))
+
+        // iterate and add new row for each score
+        for ((timestamp, score) in scoreList) {
+            val row = TableRow(requireContext())
+            val timeStampView = TextView(requireContext()).apply {
+                text = timestamp
+                setPadding(8, 8, 8, 8)
+            }
+
+            val scoreView = TextView(requireContext()).apply {
+                text = score.toString()
+                setPadding(8, 8, 8, 8)
+            }
+
+            row.addView(timeStampView)
+            row.addView(scoreView)
+            row.background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle, null)
+            tableLayout.addView(row)
+        }
     }
 }

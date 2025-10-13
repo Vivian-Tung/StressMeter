@@ -31,15 +31,11 @@ class ImgConfirmActivity:  AppCompatActivity()  {
         submitButton.setOnClickListener() {
             // save the score into csv
             CsvHelper.writeScore(this, score)
-//            val data = CsvHelper.readScores(this)
-//            val newestScore = data.last()
-//            Toast.makeText(this, "output: $data", Toast.LENGTH_SHORT).show()
-//            finish();
-             finishAffinity()
+            finishAffinity()
         }
 
         cancelButton.setOnClickListener() {
-            finishAffinity()
+            finish();
         }
     }
 }

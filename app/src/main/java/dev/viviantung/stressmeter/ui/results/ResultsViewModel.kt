@@ -26,10 +26,9 @@ class ResultsViewModel : ViewModel() {
         _scores.value = data
     }
 
-    // add scores
+    // add new score
     fun addScore(context: Context, score: Int) {
-        CsvHelper.writeScore(context, score)
-        loadScores(context) // reload after writing
+        CsvHelper.writeScore(context, score) // write new score
+        loadScores(context) // load it again
     }
-
 }

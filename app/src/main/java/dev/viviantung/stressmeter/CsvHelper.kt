@@ -15,7 +15,7 @@ object CsvHelper {
     // write to csv
     fun writeScore(context: Context, score: Int) {
         val file = getFile(context)
-        val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+        val timestamp = System.currentTimeMillis()
         val line = "$timestamp,$score\n"
 
         file.appendText(line)
