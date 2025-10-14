@@ -59,7 +59,7 @@ class ResultsFragment : Fragment() {
         resultsViewModel.scores.observe(viewLifecycleOwner) { scoreList ->
             if (!scoreList.isNullOrEmpty()) {
                 renderChart(scoreList)
-                addHeaderRow()
+                //  addHeaderRow()
                 renderTable(scoreList)
             }
         }
@@ -102,38 +102,20 @@ class ResultsFragment : Fragment() {
             xAxis.granularity = 1f
             axisRight.isEnabled = false
             animateX(700)
+            description.isEnabled = false
         }
 
         lineChart.invalidate() // refresh
 
     }
 
-    private fun addHeaderRow() {
-        val headerRow = TableRow(requireContext())
-        val timestampHeader = TextView(requireContext()).apply {
-            text = "Time"
-            setPadding(8, 8, 8, 8)
-            setTypeface(null, android.graphics.Typeface.BOLD)
-        }
-        val scoreHeader = TextView(requireContext()).apply {
-            text = "Stress"
-            setPadding(8, 8, 8, 8)
-            setTypeface(null, android.graphics.Typeface.BOLD)
-        }
-
-
-        headerRow.addView(timestampHeader)
-        headerRow.addView(scoreHeader)
-        headerRow.background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle, null)
-        headerRow.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey));
-        tableLayout.addView(headerRow)
-    }
-
     // fcn to render the able
     private fun renderTable(scoreList: List<Pair<String, Int>>) {
         // this should just render the table, should get the data from the view model
         // clear it first
-        tableLayout.removeViews(1, maxOf(tableLayout.childCount - 1))
+        if (tableLayout.childCount > 0) {
+            tableLayout.removeViews(0, tableLayout.childCount) // remove all previous rows
+        }
 
         // iterate and add new row for each score
         for ((timestamp, score) in scoreList) {

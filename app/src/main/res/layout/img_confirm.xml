@@ -27,16 +27,16 @@
         android:layout_marginTop="10dp">
 
         <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/submit"
-            android:layout_marginEnd="16dp" />
-
-        <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:layout_marginEnd="16dp"/>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

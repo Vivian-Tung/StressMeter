@@ -17,7 +17,8 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:id="@+id/chart_container"
@@ -68,12 +69,45 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/xAxisLabel"/>
 
-    <TableLayout android:id="@+id/scoreTable"
+    <TableLayout
+        android:id="@+id/headerRow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/summary"
         android:stretchColumns="*"
-        app:layout_constraintTop_toBottomOf="@id/summary"
-        android:padding="8dp">
+        android:background="@drawable/header">
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time"
+                android:textStyle="bold"
+                android:paddingStart="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stress"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:paddingEnd="6dp"/>
+        </TableRow>
     </TableLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/headerRow"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TableLayout android:id="@+id/scoreTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            app:layout_constraintTop_toBottomOf="@id/summary"
+            android:padding="8dp">
+        </TableLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

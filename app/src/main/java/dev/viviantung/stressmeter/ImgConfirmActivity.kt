@@ -1,10 +1,14 @@
 package dev.viviantung.stressmeter
 
+import android.content.Context
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.ViewModelProvider
+import dev.viviantung.stressmeter.ui.results.ResultsViewModel
 
 class ImgConfirmActivity:  AppCompatActivity()  {
     private lateinit var imgView: ImageView
@@ -14,6 +18,7 @@ class ImgConfirmActivity:  AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.img_confirm)
+        val resultsViewModel = ViewModelProvider(this).get(ResultsViewModel::class.java)
 
         imgView = findViewById(R.id.selectedImage)
         submitButton = findViewById(R.id.btnSubmit)
@@ -25,12 +30,11 @@ class ImgConfirmActivity:  AppCompatActivity()  {
         if (img != 0) {
             // there is image, display it
             imgView.setImageResource(img)
-            Toast.makeText(this, "Score: $score", Toast.LENGTH_SHORT).show()
         }
 
         submitButton.setOnClickListener() {
             // save the score into csv
-            CsvHelper.writeScore(this, score)
+            resultsViewModel.addScore(this, score)
             finishAffinity()
         }
 
