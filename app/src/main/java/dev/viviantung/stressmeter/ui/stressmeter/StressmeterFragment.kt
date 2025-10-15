@@ -51,10 +51,11 @@ class StressmeterFragment : Fragment() {
         }
 
         gridView = root.findViewById(R.id.img_grid)
-        gridView.adapter = GridViewAdapter(requireContext(), stressmeterViewModel.selectedImages)
+        gridView.adapter = GridViewAdapter(requireContext(), stressmeterViewModel.getCurrentBatch())
+
         root.findViewById<Button>(R.id.btn_more).setOnClickListener {
-            stressmeterViewModel.refreshImages()
-            gridView.adapter = GridViewAdapter(requireContext(), stressmeterViewModel.selectedImages)
+            stressmeterViewModel.loadNextBatch()
+            gridView.adapter = GridViewAdapter(requireContext(), stressmeterViewModel.getCurrentBatch())
         }
         // start vibrate and sound
         vibrate(requireContext())

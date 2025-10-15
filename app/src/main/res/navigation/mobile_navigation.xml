@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/nav_results"
         android:name="dev.viviantung.stressmeter.ui.results.ResultsFragment"
-        android:label="@string/menu_results"
+        android:label="@string/menu_stressmeter"
         tools:layout="@layout/fragment_results" />
 
 

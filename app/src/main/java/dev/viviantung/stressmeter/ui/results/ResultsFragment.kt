@@ -130,9 +130,11 @@ class ResultsFragment : Fragment() {
                 setPadding(8, 8, 8, 8)
             }
 
+            // add UI tweaks to it
+            timeStampView.background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle, null)
+            scoreView.background =  ResourcesCompat.getDrawable(resources, R.drawable.rectangle, null)
             row.addView(timeStampView)
             row.addView(scoreView)
-            row.background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle, null)
             tableLayout.addView(row)
         }
     }

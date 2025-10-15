@@ -14,16 +14,21 @@ class StressmeterViewModel : ViewModel() {
 
     // display selected images
     private var _selectedImages: IntArray? = null
-    val selectedImages: IntArray
-        get() {
-            if (_selectedImages == null) {
-                _selectedImages = ImageData.imageIds.toList().shuffled().take(16).toIntArray()
-            }
-            return _selectedImages!!
-        }
+
+    var currentBatch = 0  // starts at batch 0
+    val imagesPerBatch = 16
+    val totalBatches = ImageData.imageIds.size / imagesPerBatch
+
+    fun getCurrentBatch(): IntArray {
+        val start = currentBatch * imagesPerBatch // start index
+        val end = minOf(start + imagesPerBatch, ImageData.imageIds.size) // either end of batch or end of total
+        _selectedImages = ImageData.imageIds.sliceArray(start until end) // slice
+        return _selectedImages!!
+    }
 
     // to get more images
-    fun refreshImages() {
-        _selectedImages = ImageData.imageIds.toList().shuffled().take(16).toIntArray()
+    fun loadNextBatch() {
+        currentBatch = (currentBatch + 1) % totalBatches
+        getCurrentBatch()
     }
 }
