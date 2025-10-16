@@ -21,6 +21,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import dev.viviantung.stressmeter.MainActivity
 
 class ResultsFragment : Fragment() {
 
@@ -43,7 +44,7 @@ class ResultsFragment : Fragment() {
 
         _binding = FragmentResultsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        lineChart = root.findViewById<LineChart>(R.id.lineChart)
+        lineChart = root.findViewById(R.id.lineChart)
         tableLayout = root.findViewById(R.id.scoreTable)
 
         val textView: TextView = binding.textResults
@@ -69,6 +70,17 @@ class ResultsFragment : Fragment() {
 
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstancesState: Bundle?) {
+        super.onViewCreated(view, savedInstancesState)
+
+        val activity = requireActivity() as MainActivity
+        if (activity.hasRequiredPermissions) {
+            showContent()
+        } else {
+            hideContent()
+        }
     }
 
     override fun onDestroyView() {
@@ -137,5 +149,15 @@ class ResultsFragment : Fragment() {
             row.addView(scoreView)
             tableLayout.addView(row)
         }
+    }
+
+    private fun showContent() {
+        lineChart.visibility = View.VISIBLE
+        tableLayout.visibility = View.VISIBLE
+    }
+
+    private fun hideContent() {
+        lineChart.visibility = View.GONE
+        tableLayout.visibility = View.GONE
     }
 }
